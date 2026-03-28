@@ -1,5 +1,6 @@
 "use client";
 
+import { MY_EMAIL_ADDRESS } from "@/utils/constants";
 import { useState } from "react";
 
 type Status = "idle" | "loading" | "success" | "error";
@@ -59,8 +60,8 @@ export default function ContactPage() {
                             {[
                                 {
                                     label: "email",
-                                    value: "you@email.com",
-                                    href: "mailto:you@email.com",
+                                    value: MY_EMAIL_ADDRESS,
+                                    href: `mailto:${MY_EMAIL_ADDRESS}`,
                                 },
                                 {
                                     label: "github",
@@ -69,7 +70,7 @@ export default function ContactPage() {
                                 },
                                 {
                                     label: "linkedin",
-                                    value: "linkedin.com/in/yourname",
+                                    value: "linkedin.com/in/shemilkumar",
                                     href: "https://linkedin.com",
                                 },
                             ].map(({ label, value, href }) => (
@@ -166,7 +167,7 @@ export default function ContactPage() {
                                             required
                                             value={formData.email}
                                             onChange={handleChange}
-                                            placeholder="you@example.com"
+                                            placeholder={MY_EMAIL_ADDRESS}
                                             className="w-full px-4 py-3 rounded-xl border border-zinc-800 bg-zinc-900/50 text-zinc-100 placeholder-zinc-600 font-mono text-sm focus:outline-none focus:border-emerald-600 focus:bg-zinc-900 transition-all duration-200"
                                         />
                                     </div>
@@ -225,7 +226,7 @@ export default function ContactPage() {
                                 {status === "error" && (
                                     <div className="px-4 py-3 rounded-xl border border-red-900/50 bg-red-950/20">
                                         <p className="font-mono text-xs text-red-400">
-                                            Something went wrong. Try emailing me directly at you@email.com
+                                            Something went wrong. Try emailing me directly at {MY_EMAIL_ADDRESS}
                                         </p>
                                     </div>
                                 )}

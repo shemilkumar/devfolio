@@ -1,5 +1,6 @@
 "use client";
 
+import { MY_EMAIL_ADDRESS } from "@/utils/constants";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -24,7 +25,7 @@ export default function Navbar() {
                     href="/"
                     className="font-mono text-sm font-semibold text-white tracking-tight hover:text-emerald-400 transition-colors duration-200"
                 >
-                    <span className="text-emerald-400">~/</span>yourname
+                    <span className="text-emerald-400">~/</span>shemil
                 </Link>
 
                 {/* Desktop links */}
@@ -51,7 +52,7 @@ export default function Navbar() {
 
                 {/* Hire me CTA — desktop */}
                 <a
-                    href="mailto:you@email.com"
+                    href={`mailto:${MY_EMAIL_ADDRESS}`}
                     className="hidden md:inline-flex items-center gap-2 font-mono text-xs px-3 py-1.5 rounded-md border border-zinc-700 text-zinc-300 hover:border-emerald-500 hover:text-emerald-400 transition-all duration-200"
                 >
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -103,7 +104,7 @@ export default function Navbar() {
                         })}
                         <li className="pt-2 border-t border-zinc-800 mt-1">
                             <a
-                                href="mailto:you@email.com"
+                                href={`mailto:${MY_EMAIL_ADDRESS}`}
                                 className="flex items-center gap-2 font-mono text-sm px-3 py-2 text-zinc-400 hover:text-emerald-400 transition-colors"
                             >
                                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />

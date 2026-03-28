@@ -1,8 +1,9 @@
+import { getProjects } from "@/lib/projects";
 import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-    title: "Projects — Your Name",
+    title: "Projects — Shemil",
     description: "Things I've designed and built.",
 };
 
@@ -11,52 +12,54 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 // ── Static placeholder data (replace with Supabase later) ──────────────────
-const projects = [
-    {
-        id: "1",
-        slug: "devfolio",
-        title: "DevFolio",
-        description:
-            "A full-stack personal portfolio and blog platform built with Next.js 15, Supabase, and Clerk auth.",
-        tech_stack: ["Next.js", "TypeScript", "Supabase", "Tailwind", "Clerk"],
-        github_url: "https://github.com",
-        live_url: "https://example.com",
-        status: "live",
-    },
-    {
-        id: "2",
-        slug: "dashboard-app",
-        title: "Analytics Dashboard",
-        description:
-            "Real-time analytics dashboard with interactive charts, dark mode, and CSV export.",
-        tech_stack: ["React", "TypeScript", "Recharts", "Tailwind"],
-        github_url: "https://github.com",
-        live_url: null,
-        status: "wip",
-    },
-    {
-        id: "3",
-        slug: "ecommerce-ui",
-        title: "E-commerce UI Kit",
-        description:
-            "A component library for e-commerce UIs — product cards, cart drawer, checkout flow.",
-        tech_stack: ["React", "Storybook", "CSS Modules"],
-        github_url: "https://github.com",
-        live_url: "https://example.com",
-        status: "live",
-    },
-    {
-        id: "4",
-        slug: "weather-app",
-        title: "Weather App",
-        description:
-            "Location-aware weather app with 7-day forecast, animated conditions, and offline support.",
-        tech_stack: ["Next.js", "OpenWeather API", "PWA"],
-        github_url: "https://github.com",
-        live_url: null,
-        status: "archived",
-    },
-];
+// const projects = [
+//     {
+//         id: "1",
+//         slug: "devfolio",
+//         title: "DevFolio",
+//         description:
+//             "A full-stack personal portfolio and blog platform built with Next.js 15, Supabase, and Clerk auth.",
+//         tech_stack: ["Next.js", "TypeScript", "Supabase", "Tailwind", "Clerk"],
+//         github_url: "https://github.com",
+//         live_url: "https://example.com",
+//         status: "live",
+//     },
+//     {
+//         id: "2",
+//         slug: "dashboard-app",
+//         title: "Analytics Dashboard",
+//         description:
+//             "Real-time analytics dashboard with interactive charts, dark mode, and CSV export.",
+//         tech_stack: ["React", "TypeScript", "Recharts", "Tailwind"],
+//         github_url: "https://github.com",
+//         live_url: null,
+//         status: "wip",
+//     },
+//     {
+//         id: "3",
+//         slug: "ecommerce-ui",
+//         title: "E-commerce UI Kit",
+//         description:
+//             "A component library for e-commerce UIs — product cards, cart drawer, checkout flow.",
+//         tech_stack: ["React", "Storybook", "CSS Modules"],
+//         github_url: "https://github.com",
+//         live_url: "https://example.com",
+//         status: "live",
+//     },
+//     {
+//         id: "4",
+//         slug: "weather-app",
+//         title: "Weather App",
+//         description:
+//             "Location-aware weather app with 7-day forecast, animated conditions, and offline support.",
+//         tech_stack: ["Next.js", "OpenWeather API", "PWA"],
+//         github_url: "https://github.com",
+//         live_url: null,
+//         status: "archived",
+//     },
+// ];
+
+const projects = await getProjects();
 
 const statusStyles: Record<string, string> = {
     live: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",

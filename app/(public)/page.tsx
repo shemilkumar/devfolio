@@ -1,8 +1,9 @@
+import { MY_EMAIL_ADDRESS } from "@/utils/constants";
 import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Your Name — Frontend Developer",
+  title: "Shemil — Frontend Developer",
   description:
     "Frontend developer building fast, accessible web experiences with React and Next.js.",
 };
@@ -183,10 +184,10 @@ export default function HomePage() {
             </p>
           </div>
           <a
-            href="mailto:you@email.com"
+            href={`mailto:${MY_EMAIL_ADDRESS}`}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-medium text-sm transition-all duration-200 whitespace-nowrap"
           >
-            you@email.com ↗
+            {MY_EMAIL_ADDRESS}
           </a>
         </section>
 

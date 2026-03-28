@@ -121,7 +121,7 @@ export async function generateMetadata({
     const post = posts.find((p) => p.slug === slug);
     if (!post) return {};
     return {
-        title: `${post.title} — Your Name`,
+        title: `${post.title} — Shemil`,
         description: post.excerpt,
     };
 }
@@ -214,7 +214,7 @@ export default async function BlogPostPage({
                 <div className="border-t border-zinc-800 pt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div>
                         <p className="text-zinc-400 text-sm">Written by</p>
-                        <p className="text-white font-semibold">Your Name</p>
+                        <p className="text-white font-semibold">Shemil</p>
                     </div>
                     <Link
                         href="/blog"
