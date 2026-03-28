@@ -1,5 +1,6 @@
 "use server";
 
+import { sendContactEmail } from "./email";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createServerClient } from "./supabase";
@@ -28,16 +29,26 @@ export async function sendContactMessage(formData: FormData) {
         return { success: false, error: "Please fill in all required fields." };
     }
 
-    const { error } = await supabase.from("contact_messages").insert({
+    // 1. Save to Supabase so you have a record
+    const { error: dbError } = await supabase.from("contact_messages").insert({
         name,
         email,
         subject,
         message,
     });
 
-    if (error) {
-        console.error("sendContactMessage error:", error.message);
-        return { success: false, error: "Failed to send message. Try again." };
+    if (dbError) {
+        console.error("DB insert error:", dbError.message);
+        return { success: false, error: "Failed to save message." };
+    }
+
+    // 2. Send email notification via Resend
+    try {
+        await sendContactEmail({ name, email, subject, message });
+    } catch (emailError) {
+        // Message is saved in DB even if email fails
+        // Don't block the user — just log it
+        console.error("Email send error:", emailError);
     }
 
     return { success: true };
@@ -56,6 +67,7 @@ export async function createProject(formData: FormData) {
     const live_url = formData.get("live_url") as string;
     const year = formData.get("year") as string;
     const status = formData.get("status") as string;
+    const image_url = formData.get("image_url") as string;
 
     // Convert "Next.js, TypeScript, Tailwind" → ["Next.js", "TypeScript", "Tailwind"]
     const tech_stack = tech_stack_raw
@@ -73,7 +85,7 @@ export async function createProject(formData: FormData) {
         tech_stack,
         github_url: github_url || null,
         live_url: live_url || null,
-        image_url: null,
+        image_url: image_url || null,
         status: status as "live" | "wip" | "archived",
         year,
     });

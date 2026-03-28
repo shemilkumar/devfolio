@@ -50,7 +50,7 @@ export default function HomePage() {
               <span className="text-emerald-400">Your Name</span>
             </h1>
             <p className="font-mono text-zinc-500 text-sm tracking-widest uppercase">
-              Frontend Developer · React · Next.js
+              Frontend Developer · Angular · Next.js · React
             </p>
           </div>
 
@@ -58,7 +58,7 @@ export default function HomePage() {
           <p className="text-zinc-400 text-lg leading-relaxed max-w-xl">
             I build fast, accessible web experiences. Focused on clean code,
             good UX, and shipping things that actually work. Based in{" "}
-            <span className="text-zinc-200">Bengaluru, India</span>.
+            <span className="text-zinc-200 font-semibold">Bengaluru, India</span>.
           </p>
 
           {/* CTA buttons */}

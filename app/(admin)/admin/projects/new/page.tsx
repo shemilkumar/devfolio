@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createProject } from "@/lib/actions";
+import { UploadButton } from "@/lib/uploadthing-components";
 
 type Status = "idle" | "loading" | "error";
 
@@ -20,6 +21,9 @@ export default function NewProjectPage() {
         year: new Date().getFullYear().toString(),
         status: "wip",
     });
+
+    const [imageUrl, setImageUrl] = useState("");
+
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
         setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -119,6 +123,50 @@ export default function NewProjectPage() {
                     <p className="font-mono text-xs text-zinc-700">
                         shown on the project detail page
                     </p>
+                </div>
+
+                <div className="space-y-1.5">
+                    <label className="font-mono text-xs text-zinc-500 uppercase tracking-widest">
+                        project image
+                    </label>
+                    {imageUrl ? (
+                        <div className="relative">
+                            <img
+                                src={imageUrl}
+                                alt="Project screenshot"
+                                className="w-full aspect-video object-cover rounded-xl border border-zinc-800"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setImageUrl("")}
+                                className="absolute top-2 right-2 px-2 py-1 rounded-md bg-zinc-900 border border-zinc-700 font-mono text-xs text-zinc-400 hover:text-white transition-colors"
+                            >
+                                remove
+                            </button>
+                            {/* Hidden input so FormData picks up the image URL */}
+                            <input type="hidden" name="image_url" value={imageUrl} />
+                        </div>
+                    ) : (
+                        <div className="border border-dashed border-zinc-700 rounded-xl p-6 flex flex-col items-center justify-center gap-3">
+                            <p className="font-mono text-xs text-zinc-600">
+                                upload a screenshot or demo gif
+                            </p>
+                            <UploadButton
+                                endpoint="projectImage"
+                                onClientUploadComplete={(res) => {
+                                    if (res?.[0]?.url) setImageUrl(res[0].url);
+                                }}
+                                onUploadError={(error) => {
+                                    console.error("Upload error:", error);
+                                }}
+                                appearance={{
+                                    button:
+                                        "px-4 py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-mono text-xs transition-colors",
+                                    allowedContent: "hidden",
+                                }}
+                            />
+                        </div>
+                    )}
                 </div>
 
                 {/* Tech stack */}

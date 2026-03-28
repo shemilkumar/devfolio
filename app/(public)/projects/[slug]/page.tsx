@@ -1,65 +1,66 @@
+import { getProjectBySlug } from "@/lib/projects";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-const projects = [
-    {
-        id: "1",
-        slug: "devfolio",
-        title: "DevFolio",
-        description:
-            "A full-stack personal portfolio and blog platform built with Next.js 15, Supabase, and Clerk auth.",
-        long_description:
-            "DevFolio is the project you're looking at right now. Built to learn every major Next.js concept — App Router, server components, ISR, server actions, middleware, and the Metadata API — while shipping something actually useful. The admin panel lets me manage projects and posts through a protected dashboard without touching the codebase.",
-        tech_stack: ["Next.js", "TypeScript", "Supabase", "Tailwind", "Clerk"],
-        github_url: "https://github.com",
-        live_url: "https://example.com",
-        status: "live",
-        year: "2025",
-    },
-    {
-        id: "2",
-        slug: "dashboard-app",
-        title: "Analytics Dashboard",
-        description:
-            "Real-time analytics dashboard with interactive charts, dark mode, and CSV export.",
-        long_description:
-            "A dashboard that visualises user activity, revenue trends, and retention data in real time. Built with Recharts for the charts and a custom hook system for the data layer. Supports dark mode, responsive layout, and one-click CSV export for any chart.",
-        tech_stack: ["React", "TypeScript", "Recharts", "Tailwind"],
-        github_url: "https://github.com",
-        live_url: null,
-        status: "wip",
-        year: "2025",
-    },
-    {
-        id: "3",
-        slug: "ecommerce-ui",
-        title: "E-commerce UI Kit",
-        description:
-            "A component library for e-commerce UIs — product cards, cart drawer, checkout flow.",
-        long_description:
-            "A set of 40+ React components built for e-commerce: product grids, cart drawer with animations, multi-step checkout, size selectors, and quantity inputs. Every component is documented in Storybook with usage examples and prop tables.",
-        tech_stack: ["React", "Storybook", "CSS Modules"],
-        github_url: "https://github.com",
-        live_url: "https://example.com",
-        status: "live",
-        year: "2024",
-    },
-    {
-        id: "4",
-        slug: "weather-app",
-        title: "Weather App",
-        description:
-            "Location-aware weather app with 7-day forecast, animated conditions, and offline support.",
-        long_description:
-            "A PWA that uses the Geolocation API and OpenWeather to show current conditions and a 7-day forecast. Animated weather icons, a feels-like temperature gauge, and full offline support via a service worker. Installable on mobile.",
-        tech_stack: ["Next.js", "OpenWeather API", "PWA"],
-        github_url: "https://github.com",
-        live_url: null,
-        status: "archived",
-        year: "2024",
-    },
-];
+// const projects = [
+//     {
+//         id: "1",
+//         slug: "devfolio",
+//         title: "DevFolio",
+//         description:
+//             "A full-stack personal portfolio and blog platform built with Next.js 15, Supabase, and Clerk auth.",
+//         long_description:
+//             "DevFolio is the project you're looking at right now. Built to learn every major Next.js concept — App Router, server components, ISR, server actions, middleware, and the Metadata API — while shipping something actually useful. The admin panel lets me manage projects and posts through a protected dashboard without touching the codebase.",
+//         tech_stack: ["Next.js", "TypeScript", "Supabase", "Tailwind", "Clerk"],
+//         github_url: "https://github.com",
+//         live_url: "https://example.com",
+//         status: "live",
+//         year: "2025",
+//     },
+//     {
+//         id: "2",
+//         slug: "dashboard-app",
+//         title: "Analytics Dashboard",
+//         description:
+//             "Real-time analytics dashboard with interactive charts, dark mode, and CSV export.",
+//         long_description:
+//             "A dashboard that visualises user activity, revenue trends, and retention data in real time. Built with Recharts for the charts and a custom hook system for the data layer. Supports dark mode, responsive layout, and one-click CSV export for any chart.",
+//         tech_stack: ["React", "TypeScript", "Recharts", "Tailwind"],
+//         github_url: "https://github.com",
+//         live_url: null,
+//         status: "wip",
+//         year: "2025",
+//     },
+//     {
+//         id: "3",
+//         slug: "ecommerce-ui",
+//         title: "E-commerce UI Kit",
+//         description:
+//             "A component library for e-commerce UIs — product cards, cart drawer, checkout flow.",
+//         long_description:
+//             "A set of 40+ React components built for e-commerce: product grids, cart drawer with animations, multi-step checkout, size selectors, and quantity inputs. Every component is documented in Storybook with usage examples and prop tables.",
+//         tech_stack: ["React", "Storybook", "CSS Modules"],
+//         github_url: "https://github.com",
+//         live_url: "https://example.com",
+//         status: "live",
+//         year: "2024",
+//     },
+//     {
+//         id: "4",
+//         slug: "weather-app",
+//         title: "Weather App",
+//         description:
+//             "Location-aware weather app with 7-day forecast, animated conditions, and offline support.",
+//         long_description:
+//             "A PWA that uses the Geolocation API and OpenWeather to show current conditions and a 7-day forecast. Animated weather icons, a feels-like temperature gauge, and full offline support via a service worker. Installable on mobile.",
+//         tech_stack: ["Next.js", "OpenWeather API", "PWA"],
+//         github_url: "https://github.com",
+//         live_url: null,
+//         status: "archived",
+//         year: "2024",
+//     },
+// ];
 
 const statusStyles: Record<string, string> = {
     live: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
@@ -67,9 +68,9 @@ const statusStyles: Record<string, string> = {
     archived: "bg-zinc-800      text-zinc-500   border-zinc-700",
 };
 
-export async function generateStaticParams() {
-    return projects.map((p) => ({ slug: p.slug }));
-}
+// export async function generateStaticParams() {
+//     return projects.map((p) => ({ slug: p.slug }));
+// }
 
 export async function generateMetadata({
     params,
@@ -77,7 +78,8 @@ export async function generateMetadata({
     params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
     const { slug } = await params;
-    const project = projects.find((p) => p.slug === slug);
+    // const project = projects.find((p) => p.slug === slug);
+    const project = await getProjectBySlug(slug);
     if (!project) return {};
     return {
         title: `${project.title} — Shemil`,
@@ -91,7 +93,7 @@ export default async function ProjectPage({
     params: Promise<{ slug: string }>;
 }) {
     const { slug } = await params;
-    const project: any = projects.find((p) => p.slug === slug);
+    const project = await getProjectBySlug(slug);
 
     if (!project) notFound();
 

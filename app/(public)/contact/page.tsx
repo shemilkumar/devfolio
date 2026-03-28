@@ -1,5 +1,6 @@
 "use client";
 
+import { sendContactMessage } from "@/lib/actions";
 import { MY_EMAIL_ADDRESS } from "@/utils/constants";
 import { useState } from "react";
 
@@ -25,9 +26,12 @@ export default function ContactPage() {
         setStatus("loading");
 
         try {
-            // TODO: replace this with your server action once you set up Resend
-            // const result = await sendContactEmail(new FormData(e.currentTarget));
-            await new Promise((resolve) => setTimeout(resolve, 1200)); // fake delay for now
+            const form = e.currentTarget;
+            const data = new FormData(form);
+            const result = await sendContactMessage(data);
+
+            if (!result.success) throw new Error(result.error);
+
             setStatus("success");
             setFormData({ name: "", email: "", subject: "", message: "" });
         } catch {
@@ -65,8 +69,8 @@ export default function ContactPage() {
                                 },
                                 {
                                     label: "github",
-                                    value: "github.com/yourhandle",
-                                    href: "https://github.com",
+                                    value: "github.com/shemilkumar",
+                                    href: "https://github.com/shemilkumar",
                                 },
                                 {
                                     label: "linkedin",
@@ -167,7 +171,7 @@ export default function ContactPage() {
                                             required
                                             value={formData.email}
                                             onChange={handleChange}
-                                            placeholder={MY_EMAIL_ADDRESS}
+                                            placeholder='your@example.com'
                                             className="w-full px-4 py-3 rounded-xl border border-zinc-800 bg-zinc-900/50 text-zinc-100 placeholder-zinc-600 font-mono text-sm focus:outline-none focus:border-emerald-600 focus:bg-zinc-900 transition-all duration-200"
                                         />
                                     </div>
