@@ -1,6 +1,8 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import AdminNav from "@/components/ui/AdminNav";
+import { SignOutButton } from "@clerk/nextjs";
 
 const navItems = [
     { href: "/admin", label: "Dashboard", exact: true },
@@ -21,10 +23,10 @@ export default async function AdminLayout({
     return (
         <div className="min-h-screen bg-zinc-950 text-zinc-100 flex">
 
-            {/* ── Sidebar ──────────────────────────────────────── */}
-            <aside className="w-56 shrink-0 border-r border-zinc-800 flex flex-col">
+            {/* Sidebar — full height, always visible */}
+            <aside className="w-56 shrink-0 border-r border-zinc-800 flex flex-col sticky top-0 h-screen">
                 {/* Logo */}
-                <div className="px-6 py-5 border-b border-zinc-800">
+                <div className="px-6 py-5 border-b border-zinc-800 shrink-0">
                     <Link
                         href="/"
                         className="font-mono text-sm font-semibold text-white hover:text-emerald-400 transition-colors"
@@ -34,27 +36,25 @@ export default async function AdminLayout({
                     <p className="font-mono text-xs text-zinc-600 mt-1">Admin panel</p>
                 </div>
 
-                {/* Nav */}
-                <nav className="flex-1 px-3 py-4 space-y-1">
-                    {navItems.map(({ href, label }) => (
-                        <Link
-                            key={href}
-                            href={href}
-                            className="flex items-center gap-2 px-3 py-2 rounded-lg font-mono text-xs text-zinc-400 hover:text-white hover:bg-zinc-800 transition-all duration-200"
-                        >
-                            {label}
-                        </Link>
-                    ))}
-                </nav>
+                {/* Nav — takes remaining space */}
+                <div className="flex-1 overflow-auto">
+                    <AdminNav />
+                </div>
 
-                {/* Bottom links */}
-                <div className="px-3 py-4 border-t border-zinc-800 space-y-1">
+                {/* Bottom links — always pinned to bottom */}
+                <div className="px-3 py-4 border-t border-zinc-800 space-y-1 shrink-0">
                     <Link
                         href="/"
                         className="flex items-center gap-2 px-3 py-2 rounded-lg font-mono text-xs text-zinc-600 hover:text-white hover:bg-zinc-800 transition-all duration-200"
                     >
                         ← back to site
                     </Link>
+                    {/* <SignOutButton redirectUrl="/">
+                        <button className="w-full flex items-center gap-2 px-3 py-2 rounded-lg font-mono text-xs text-zinc-600 hover:text-red-400 hover:bg-zinc-800 transition-all duration-200">
+                            sign out
+                        </button>
+                    </SignOutButton> */}
+
                     <Link
                         href="/sign-out"
                         className="flex items-center gap-2 px-3 py-2 rounded-lg font-mono text-xs text-zinc-600 hover:text-red-400 hover:bg-zinc-800 transition-all duration-200"
@@ -64,10 +64,9 @@ export default async function AdminLayout({
                 </div>
             </aside>
 
-            {/* ── Main content ─────────────────────────────────── */}
-            <main className="flex-1 overflow-auto">
-                {/* Top bar */}
-                <div className="border-b border-zinc-800 px-8 py-4 flex items-center justify-between">
+            {/* Main — scrolls independently */}
+            <main className="flex-1 overflow-auto h-screen">
+                <div className="border-b border-zinc-800 px-8 py-4 flex items-center justify-between sticky top-0 bg-zinc-950 z-10">
                     <div className="flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-emerald-400" />
                         <span className="font-mono text-xs text-zinc-500">
@@ -78,7 +77,6 @@ export default async function AdminLayout({
                         id: {userId.slice(0, 12)}...
                     </span>
                 </div>
-
                 <div className="px-8 py-10">{children}</div>
             </main>
 

@@ -9,7 +9,8 @@ export const metadata: Metadata = {
 
 // ISR: rebuild this page every hour in the background
 // Once you connect Supabase, replace this with: const projects = await getProjects()
-export const revalidate = 3600;
+export const revalidate = 60;
+// export const dynamic = "force-dynamic";
 
 // ── Static placeholder data (replace with Supabase later) ──────────────────
 // const projects = [
@@ -61,6 +62,7 @@ export const revalidate = 3600;
 
 const projects = await getProjects();
 
+
 const statusStyles: Record<string, string> = {
     live: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
     wip: "bg-amber-500/10  text-amber-400  border-amber-500/20",
@@ -104,71 +106,78 @@ export default function ProjectsPage() {
 
                 {/* Project grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-
                     {projects.map((project) => (
-                        <Link
+                        <div
                             key={project.id}
-                            href={`/projects/${project.slug}`}
                             className="group relative flex flex-col p-6 rounded-xl border border-zinc-800 bg-zinc-900/40 hover:border-zinc-600 hover:bg-zinc-900 transition-all duration-200"
                         >
-                            {/* Top row */}
-                            <div className="flex items-start justify-between mb-3">
-                                <h2 className="font-semibold text-white text-lg group-hover:text-emerald-400 transition-colors leading-tight">
-                                    {project.title}
-                                </h2>
-                                <div className="flex items-center gap-2 ml-3 shrink-0">
-                                    <span className={`font-mono text-xs px-2 py-0.5 rounded border ${statusStyles[project.status]}`}>
-                                        {project.status === "wip" ? "in progress" : project.status}
-                                    </span>
-                                    <span className="text-zinc-600 group-hover:text-zinc-400 transition-colors text-lg">↗</span>
+                            {/* Clickable area — goes to project detail */}
+                            <Link href={`/projects/${project.slug}`} className="flex flex-col flex-1">
+                                {/* Top row */}
+                                <div className="flex items-start justify-between mb-3">
+                                    <h2 className="font-semibold text-white text-lg group-hover:text-emerald-400 transition-colors leading-tight">
+                                        {project.title}
+                                    </h2>
+                                    <div className="flex items-center gap-2 ml-3 shrink-0">
+                                        <span className={`font-mono text-xs px-2 py-0.5 rounded border ${statusStyles[project.status]}`}>
+                                            {project.status === "wip" ? "in progress" : project.status}
+                                        </span>
+                                        <span className="text-zinc-600 group-hover:text-zinc-400 transition-colors text-lg">↗</span>
+                                    </div>
                                 </div>
-                            </div>
 
-                            {/* Description */}
-                            <p className="text-zinc-400 text-sm leading-relaxed flex-1 mb-5">
-                                {project.description}
-                            </p>
+                                {/* Description */}
+                                <p className="text-zinc-400 text-sm leading-relaxed flex-1 mb-5">
+                                    {project.description}
+                                </p>
 
-                            {/* Tech stack */}
-                            <div className="flex flex-wrap gap-1.5 mb-4">
-                                {project.tech_stack.map((tech) => (
-                                    <span key={tech} className="font-mono text-xs px-2 py-0.5 rounded bg-zinc-800 text-zinc-500">
-                                        {tech}
-                                    </span>
-                                ))}
-                            </div>
+                                {/* Tech stack */}
+                                <div className="flex flex-wrap gap-1.5 mb-4">
+                                    {project.tech_stack.map((tech) => (
+                                        <span key={tech} className="font-mono text-xs px-2 py-0.5 rounded bg-zinc-800 text-zinc-500">
+                                            {tech}
+                                        </span>
+                                    ))}
+                                </div>
+                            </Link>
 
-                            {/* Links */}
+                            {/* Links — outside the <Link>, no onClick needed */}
                             <div className="flex gap-3 pt-4 border-t border-zinc-800">
                                 {project.github_url && (
-                                    <a href={project.github_url} target="_blank" rel="noopener noreferrer"
+                                    <a
+                                        href={project.github_url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="font-mono text-xs text-zinc-500 hover:text-white transition-colors"
                                     >
                                         github ↗
                                     </a>
                                 )}
                                 {project.live_url && (
-                                    <a href={project.live_url} target="_blank" rel="noopener noreferrer"
+                                    <a
+                                        href={project.live_url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="font-mono text-xs text-emerald-600 hover:text-emerald-400 transition-colors"
                                     >
                                         live demo ↗
                                     </a>
                                 )}
                             </div>
-                        </Link>
+                        </div>
                     ))}
                 </div>
 
                 {/* Footer note */}
                 <p className="font-mono text-xs text-zinc-600 text-center">
                     more projects on{" "}
-                    <a href="https://github.com" target="_blank" rel="noopener noreferrer"
+                    <a href="https://github.com/shemilkumar" target="_blank" rel="noopener noreferrer"
                         className="text-zinc-500 hover:text-white transition-colors">
-                        github.com/yourhandle ↗
+                        github.com/shemilkumar ↗
                     </a>
                 </p>
 
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }

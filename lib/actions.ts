@@ -96,8 +96,9 @@ export async function createProject(formData: FormData) {
     }
 
     // Tell Next.js to rebuild these pages since data changed
+    revalidatePath("/", "layout");         // revalidates everything
     revalidatePath("/projects");
-    revalidatePath("/admin");
+    revalidatePath("/projects/[slug]", "page");
 
     redirect("/admin");
 }
@@ -177,6 +178,8 @@ export async function createPost(formData: FormData) {
     }
 
     revalidatePath("/blog");
+    revalidatePath("/blog/[slug]", "page");
+    revalidatePath("/");
     revalidatePath("/admin");
 
     redirect("/admin");

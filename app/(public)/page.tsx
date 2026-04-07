@@ -10,24 +10,24 @@ export const metadata: Metadata = {
 
 // Static skills list — edit this to match yours
 const skills = [
-  "React", "Next.js", "TypeScript", "Tailwind CSS",
+  "Angular", "React", "Next.js", "TypeScript", "Tailwind CSS",
   "Node.js", "REST APIs", "Git", "Figma",
 ];
 
 // A few pinned projects shown on homepage — later these will come from Supabase
 const featured = [
   {
-    title: "DevFolio",
-    description: "A full-stack personal portfolio and blog platform built with Next.js 15, Supabase, and Clerk auth.",
-    tags: ["Next.js", "Supabase", "Tailwind"],
-    href: "/projects/devfolio",
+    title: "Montana Resort - Resort Booking Website",
+    description: "Montana Resort is a beautifully designed, fully responsive website showcasing a premium hotel experience.",
+    tags: ["Next.js", "Tailwind", "Redux"],
+    href: "/projects/montana-resort---resort-booking-website",
   },
   {
-    title: "Weather App",
-    description: "Location-aware weather app with 7-day forecast, animated conditions, and offline support.",
-    tags: ["Next.js", "OpenWeather API", "PWA"],
-    href: "/projects/weather-app",
-  },
+    title: "Restaurantly - Food Ordering Platform",
+    description: "Restaurantly is a visually engaging website designed for online food ordering.",
+    tags: ["Angular", "Tailwind", "RXJS"],
+    href: "/projects/restaurantly---food-ordering-platform",
+  }
 ];
 
 export default function HomePage() {
@@ -47,7 +47,7 @@ export default function HomePage() {
           <div className="space-y-3">
             <h1 className="text-5xl sm:text-6xl font-bold tracking-tight text-white leading-[1.1]">
               Hey, I'm{" "}
-              <span className="text-emerald-400">Your Name</span>
+              <span className="text-emerald-400">Shemil</span>
             </h1>
             <p className="font-mono text-zinc-500 text-sm tracking-widest uppercase">
               Frontend Developer · Angular · Next.js · React

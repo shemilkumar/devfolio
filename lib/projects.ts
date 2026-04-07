@@ -10,6 +10,9 @@ export async function getProjects(): Promise<Project[]> {
         .select("*")
         .order("created_at", { ascending: false });
 
+    console.log("Total rows from Supabase:", data?.length);
+    console.log("Error:", error);
+
     if (error) {
         console.error("getProjects error:", error.message);
         return [];

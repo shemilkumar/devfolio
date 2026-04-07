@@ -1,5 +1,6 @@
 import { getProjectBySlug } from "@/lib/projects";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -185,11 +186,23 @@ export default async function ProjectPage({
                 </section>
 
                 {/* Image placeholder */}
-                <div className="w-full aspect-video rounded-xl border border-zinc-800 bg-zinc-900/50 flex items-center justify-center">
-                    <p className="font-mono text-xs text-zinc-700">
-                        project screenshot coming soon
-                    </p>
-                </div>
+                {project.image_url ? (
+                    <div className="w-full aspect-video rounded-xl border border-zinc-800 overflow-hidden">
+                        <Image
+                            src={project.image_url}
+                            alt={`${project.title} screenshot`}
+                            width={1200}
+                            height={675}
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
+                ) : (
+                    <div className="w-full aspect-video rounded-xl border border-zinc-800 bg-zinc-900/50 flex items-center justify-center">
+                        <p className="font-mono text-xs text-zinc-700">
+                            no screenshot yet
+                        </p>
+                    </div>
+                )}
 
                 {/* Footer nav */}
                 <div className="border-t border-zinc-800 pt-8 flex justify-between items-center">

@@ -1,6 +1,7 @@
 "use client";
 
 import { MY_EMAIL_ADDRESS } from "@/utils/constants";
+import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -13,6 +14,7 @@ const links = [
 ];
 
 export default function Navbar() {
+    const { userId } = useAuth();
     const pathname = usePathname();
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -48,6 +50,19 @@ export default function Navbar() {
                             </li>
                         );
                     })}
+
+                    {
+                        userId && (
+                            <li>
+                                <Link
+                                    href="/admin"
+                                    className="font-mono text-xs px-3 py-1.5 rounded-md border border-zinc-700 text-zinc-500 hover:text-emerald-400 hover:border-emerald-800 transition-all duration-200"
+                                >
+                                    Admin
+                                </Link>
+                            </li>
+                        )
+                    }
                 </ul>
 
                 {/* Hire me CTA — desktop */}

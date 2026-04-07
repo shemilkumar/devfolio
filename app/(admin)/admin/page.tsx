@@ -1,3 +1,6 @@
+import { getAllPosts } from "@/lib/blog";
+import { getMessageCount } from "@/lib/messages";
+import { getProjects } from "@/lib/projects";
 import Link from "next/link";
 
 // SSR — always fresh data, never cached
@@ -6,22 +9,22 @@ export const dynamic = "force-dynamic";
 // Static counts for now — replace with real Supabase queries later:
 // const projects = await getProjects()
 // const posts = await getPosts()
+
+const [projects, posts, messageCount] = await Promise.all([
+    getProjects(),
+    getAllPosts(),
+    getMessageCount(),
+]);
+
 const stats = {
-    projects: 4,
-    posts: 4,
-    messages: 0,
+    projects: projects.length,
+    posts: posts.length,
+    messages: messageCount,
 };
 
-const recentProjects = [
-    { slug: "devfolio", title: "DevFolio", status: "live" },
-    { slug: "dashboard-app", title: "Analytics Dashboard", status: "wip" },
-    { slug: "ecommerce-ui", title: "E-commerce UI Kit", status: "live" },
-];
+const recentProjects = projects.slice(0, 3);
 
-const recentPosts = [
-    { slug: "getting-started-with-nextjs", title: "Getting started with Next.js App Router" },
-    { slug: "tailwind-tips", title: "10 Tailwind CSS tricks I use every day" },
-];
+const recentPosts = posts.slice(0, 3);
 
 const statusStyles: Record<string, string> = {
     live: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
@@ -58,7 +61,7 @@ export default function AdminDashboard() {
                         <p className="font-mono text-xs text-zinc-500 uppercase tracking-widest">
                             {label}
                         </p>
-                        <p className={`text-4xl font-bold ${color}`}>{value}</p>
+                        <p className={`text-4xl font-bold ${color}`}>{value || 0}</p>
                     </div>
                 ))}
             </div>
