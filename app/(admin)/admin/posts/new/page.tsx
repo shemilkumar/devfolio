@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { createPost } from "@/lib/actions";
 
 type Status = "idle" | "loading" | "error";
 
@@ -50,9 +51,8 @@ export default function NewPostPage() {
         setErrorMsg("");
 
         try {
-            // TODO: replace with real server action once Supabase is set up
-            // const result = await createPost(new FormData(e.currentTarget))
-            // if (!result.success) throw new Error(result.error)
+            const result = await createPost(new FormData(e.currentTarget))
+            if (!result.success) throw new Error(result.error)
             await new Promise((resolve) => setTimeout(resolve, 1000)); // fake delay
             router.push("/admin");
         } catch (err) {
@@ -179,8 +179,8 @@ export default function NewPostPage() {
                             setFormData((prev) => ({ ...prev, published: !prev.published }))
                         }
                         className={`relative w-11 h-6 rounded-full border transition-all duration-200 ${formData.published
-                                ? "bg-emerald-500 border-emerald-500"
-                                : "bg-zinc-800 border-zinc-700"
+                            ? "bg-emerald-500 border-emerald-500"
+                            : "bg-zinc-800 border-zinc-700"
                             }`}
                     >
                         <span

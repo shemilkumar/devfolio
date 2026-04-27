@@ -50,7 +50,7 @@ export default function HomePage() {
               <span className="text-emerald-400">Shemil</span>
             </h1>
             <p className="font-mono text-zinc-500 text-sm tracking-widest uppercase">
-              Frontend Developer · Angular · Next.js · React
+              Team Lead · Frontend Developer · Angular · Next.js · React
             </p>
           </div>
 

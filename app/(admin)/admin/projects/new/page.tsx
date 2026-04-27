@@ -114,12 +114,15 @@ export default function NewProjectPage() {
                     <textarea
                         id="long_description"
                         name="long_description"
-                        rows={5}
+                        rows={8}
                         value={formData.long_description}
                         onChange={handleChange}
-                        placeholder="Tell the full story — what you built, why, what you learned..."
-                        className={`${inputClass} resize-none`}
+                        placeholder={`Markdown supported:\n\n## Section heading\n\n- Bullet point one\n- Bullet point two\n\n**Bold text**, \`inline code\``}
+                        className={`${inputClass} resize-y font-mono text-sm leading-relaxed`}
                     />
+                    <p className="font-mono text-xs text-zinc-700">
+                        markdown supported — ## headings, - bullets, **bold**, \`code\`
+                    </p>
                     <p className="font-mono text-xs text-zinc-700">
                         shown on the project detail page
                     </p>

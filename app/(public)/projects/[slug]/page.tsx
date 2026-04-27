@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ReactMarkdown from "react-markdown";
+
 
 // const projects = [
 //     {
@@ -176,33 +178,91 @@ export default async function ProjectPage({
                 </section>
 
                 {/* About */}
-                <section className="space-y-4">
+                {/* <section className="space-y-4">
                     <h2 className="font-mono text-xs text-zinc-500 uppercase tracking-widest">
             // about
                     </h2>
                     <p className="text-zinc-400 leading-relaxed text-base">
                         {project.long_description}
                     </p>
+                </section> */}
+
+
+                {/* About */}
+                <section className="space-y-4">
+                    <h2 className="font-mono text-xs text-zinc-500 uppercase tracking-widest">
+                        // about
+                    </h2>
+                    <ReactMarkdown
+                        components={{
+                            p: ({ children }) => (
+                                <p className="text-zinc-400 leading-relaxed text-base mb-3">
+                                    {children}
+                                </p>
+                            ),
+                            h2: ({ children }) => (
+                                <h3 className="text-white font-semibold text-lg mt-6 mb-2">
+                                    {children}
+                                </h3>
+                            ),
+                            h3: ({ children }) => (
+                                <h4 className="text-zinc-200 font-medium mt-4 mb-2">
+                                    {children}
+                                </h4>
+                            ),
+                            ul: ({ children }) => (
+                                <ul className="space-y-2 my-3">{children}</ul>
+                            ),
+                            li: ({ children }) => (
+                                <li className="flex items-start gap-2 text-zinc-400 text-base leading-relaxed">
+                                    <span className="text-emerald-400 mt-1.5 shrink-0 text-xs">▹</span>
+                                    <span>{children}</span>
+                                </li>
+                            ),
+                            strong: ({ children }) => (
+                                <strong className="text-zinc-200 font-semibold">{children}</strong>
+                            ),
+                            a: ({ href, children }) => (
+                                <a
+                                    href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2 transition-colors"
+                                >
+                                    {children}
+                                </a>
+                            ),
+                            code: ({ children }) => (
+                                <code className="font-mono text-sm px-1.5 py-0.5 rounded bg-zinc-800 text-emerald-400">
+                                    {children}
+                                </code>
+                            ),
+                        }}
+                    >
+                        {project.long_description ?? ""}
+                    </ReactMarkdown>
                 </section>
 
                 {/* Image placeholder */}
-                {project.image_url ? (
-                    <div className="w-full aspect-video rounded-xl border border-zinc-800 overflow-hidden">
-                        <Image
-                            src={project.image_url}
-                            alt={`${project.title} screenshot`}
-                            width={1200}
-                            height={675}
-                            className="w-full h-full object-cover"
-                        />
-                    </div>
-                ) : (
-                    <div className="w-full aspect-video rounded-xl border border-zinc-800 bg-zinc-900/50 flex items-center justify-center">
-                        <p className="font-mono text-xs text-zinc-700">
-                            no screenshot yet
-                        </p>
-                    </div>
-                )}
+                {
+                    project.image_url ? (
+                        <div className="w-full aspect-video rounded-xl border border-zinc-800 overflow-hidden">
+                            <Image
+                                src={project.image_url}
+                                alt={`${project.title} screenshot`}
+                                width={1200}
+                                height={675}
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                    ) : (
+                        <div className="w-full aspect-video rounded-xl border border-zinc-800 bg-zinc-900/50 flex items-center justify-center">
+                            <p className="font-mono text-xs text-zinc-700">
+                                no screenshot yet
+                            </p>
+                        </div>
+                    )
+                }
 
                 {/* Footer nav */}
                 <div className="border-t border-zinc-800 pt-8 flex justify-between items-center">

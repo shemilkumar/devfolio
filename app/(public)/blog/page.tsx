@@ -8,50 +8,7 @@ export const metadata: Metadata = {
 };
 
 export const revalidate = 3600;
-
-// ── Static placeholder data (replace with Supabase later) ──────────────────
-// const posts = [
-//     {
-//         id: "1",
-//         slug: "getting-started-with-nextjs",
-//         title: "Getting started with Next.js App Router",
-//         excerpt:
-//             "The App Router is a fundamental shift in how Next.js works. Here's everything I learned building my first project with it.",
-//         date: "2025-03-10",
-//         read_time: "6 min read",
-//         tags: ["Next.js", "React", "Tutorial"],
-//     },
-//     {
-//         id: "2",
-//         slug: "tailwind-tips",
-//         title: "10 Tailwind CSS tricks I use every day",
-//         excerpt:
-//             "After two years of daily Tailwind usage, these are the patterns and utilities that make me significantly faster.",
-//         date: "2025-02-22",
-//         read_time: "4 min read",
-//         tags: ["Tailwind", "CSS"],
-//     },
-//     {
-//         id: "3",
-//         slug: "typescript-for-react-devs",
-//         title: "TypeScript for React developers — a practical guide",
-//         excerpt:
-//             "Not the theoretical TypeScript guide. The one that shows you what you'll actually use when building React apps day to day.",
-//         date: "2025-01-18",
-//         read_time: "8 min read",
-//         tags: ["TypeScript", "React"],
-//     },
-//     {
-//         id: "4",
-//         slug: "supabase-auth-nextjs",
-//         title: "Setting up Supabase auth in Next.js",
-//         excerpt:
-//             "A step-by-step walkthrough of adding Supabase authentication to a Next.js 15 project using the App Router.",
-//         date: "2024-12-05",
-//         read_time: "10 min read",
-//         tags: ["Supabase", "Auth", "Next.js"],
-//     },
-// ];
+// export const dynamic = "force-dynamic";
 
 const posts = await getPosts();
 
@@ -100,7 +57,7 @@ export default function BlogPage() {
                             {/* Date column */}
                             <div className="sm:w-36 shrink-0">
                                 <time className="font-mono text-xs text-zinc-600">
-                                    {formatDate(post.date)}
+                                    {formatDate(post.created_at)}
                                 </time>
                             </div>
 

@@ -1,110 +1,12 @@
+import { getPosts } from "@/lib/blog";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ReactMarkdown from "react-markdown";
 
 // Same posts array — later this comes from Supabase via lib/blog.ts
-const posts = [
-    {
-        id: "1",
-        slug: "getting-started-with-nextjs",
-        title: "Getting started with Next.js App Router",
-        excerpt:
-            "The App Router is a fundamental shift in how Next.js works. Here's everything I learned building my first project with it.",
-        date: "2025-03-10",
-        read_time: "6 min read",
-        tags: ["Next.js", "React", "Tutorial"],
-        content: `
-The Next.js App Router introduced a completely new mental model for building React apps. Instead of pages and API routes living side by side, everything is now organized around layouts, loading states, and server components.
+const posts = await getPosts();
 
-## What changed
-
-The biggest shift is that components are server components by default. This means they can fetch data directly — no useEffect, no useState, no loading spinners you have to wire up manually.
-
-## Layouts
-
-Layouts are the killer feature. You define a layout.tsx file in any folder and it wraps all the pages inside that folder. Change the layout, every page updates. The root layout wraps your entire app.
-
-## What to do next
-
-Start with a simple project. Build the pages, understand how layouts nest, then layer in data fetching. The App Router rewards you for learning it properly.
-    `,
-    },
-    {
-        id: "2",
-        slug: "tailwind-tips",
-        title: "10 Tailwind CSS tricks I use every day",
-        excerpt:
-            "After two years of daily Tailwind usage, these are the patterns and utilities that make me significantly faster.",
-        date: "2025-02-22",
-        read_time: "4 min read",
-        tags: ["Tailwind", "CSS"],
-        content: `
-Tailwind clicked for me the moment I stopped trying to fight it and started thinking in utilities. Here are the patterns I reach for constantly.
-
-## Group hover
-
-The group and group-hover utilities let you trigger styles on a child when the parent is hovered. Perfect for cards.
-
-## Arbitrary values
-
-Square brackets let you escape the design system when you need to: w-[742px], top-[117px]. Use sparingly but don't fight it.
-
-## The divide utilities
-
-Instead of adding border-bottom to every child except the last, just add divide-y to the parent. Clean and effortless.
-    `,
-    },
-    {
-        id: "3",
-        slug: "typescript-for-react-devs",
-        title: "TypeScript for React developers — a practical guide",
-        excerpt:
-            "Not the theoretical TypeScript guide. The one that shows you what you'll actually use when building React apps day to day.",
-        date: "2025-01-18",
-        read_time: "8 min read",
-        tags: ["TypeScript", "React"],
-        content: `
-Most TypeScript guides teach you the language. This one teaches you the 20% of TypeScript that covers 80% of what you'll write in a React codebase.
-
-## Typing props
-
-Start here. Every component needs typed props. Use an interface, keep it next to the component, export it if other files need it.
-
-## Typing useState
-
-TypeScript usually infers this correctly. When it can't — like when initial state is null but later becomes an object — tell it explicitly: useState<User | null>(null).
-
-## Typing events
-
-onChange, onClick, onSubmit — these all have specific event types. React.ChangeEvent, React.MouseEvent, React.FormEvent. You'll memorize them fast.
-    `,
-    },
-    {
-        id: "4",
-        slug: "supabase-auth-nextjs",
-        title: "Setting up Supabase auth in Next.js",
-        excerpt:
-            "A step-by-step walkthrough of adding Supabase authentication to a Next.js 15 project using the App Router.",
-        date: "2024-12-05",
-        read_time: "10 min read",
-        tags: ["Supabase", "Auth", "Next.js"],
-        content: `
-Supabase makes auth surprisingly approachable. Here's exactly how to wire it up in a Next.js App Router project.
-
-## Install the package
-
-You need @supabase/supabase-js and the helper @supabase/ssr. The ssr package handles cookies and server-side session management automatically.
-
-## Create the client
-
-One client for server components, one for client components. The difference is how they access cookies — server components use next/headers, client components use document.cookie.
-
-## Protect routes
-
-Use middleware to check the session on every request. If there's no session and the route is protected, redirect to login. That's the whole auth guard pattern.
-    `,
-    },
-];
 
 // Pre-build all blog post pages at deploy time
 export async function generateStaticParams() {
@@ -179,7 +81,7 @@ export default async function BlogPostPage({
                     </p>
 
                     <div className="flex items-center gap-3 font-mono text-xs text-zinc-600 border-t border-zinc-800 pt-5">
-                        <time>{formatDate(post.date)}</time>
+                        <time>{formatDate(post.created_at)}</time>
                         <span>·</span>
                         <span>{post.read_time}</span>
                     </div>
@@ -190,7 +92,7 @@ export default async function BlogPostPage({
           For now this renders plain text with basic markdown-like headings.
           When you add MDX support later, replace this with your MDX renderer.
         */}
-                <article className="space-y-6">
+                {/* <article className="space-y-6">
                     {post.content.trim().split("\n\n").map((block, i) => {
                         if (block.startsWith("## ")) {
                             return (
@@ -208,7 +110,56 @@ export default async function BlogPostPage({
                             </p>
                         );
                     })}
-                </article>
+                </article> */}
+
+                <ReactMarkdown
+                    components={{
+                        p: ({ children }) => (
+                            <p className="text-zinc-400 leading-relaxed text-base mb-3">
+                                {children}
+                            </p>
+                        ),
+                        h2: ({ children }) => (
+                            <h3 className="text-white font-semibold text-lg mt-6 mb-2">
+                                {children}
+                            </h3>
+                        ),
+                        h3: ({ children }) => (
+                            <h4 className="text-zinc-200 font-medium mt-4 mb-2">
+                                {children}
+                            </h4>
+                        ),
+                        ul: ({ children }) => (
+                            <ul className="space-y-2 my-3">{children}</ul>
+                        ),
+                        li: ({ children }) => (
+                            <li className="flex items-start gap-2 text-zinc-400 text-base leading-relaxed">
+                                <span className="text-emerald-400 mt-1.5 shrink-0 text-xs">▹</span>
+                                <span>{children}</span>
+                            </li>
+                        ),
+                        strong: ({ children }) => (
+                            <strong className="text-zinc-200 font-semibold">{children}</strong>
+                        ),
+                        a: ({ href, children }) => (
+                            <a
+                                href={href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2 transition-colors"
+                            >
+                                {children}
+                            </a>
+                        ),
+                        code: ({ children }) => (
+                            <code className="font-mono text-sm px-1.5 py-0.5 rounded bg-zinc-800 text-emerald-400">
+                                {children}
+                            </code>
+                        ),
+                    }}
+                >
+                    {post.content ?? ""}
+                </ReactMarkdown>
 
                 {/* Footer */}
                 <div className="border-t border-zinc-800 pt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
