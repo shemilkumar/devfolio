@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Shemil — Frontend Developer",
+  title: "Shemilkumar | Senior Frontend Developer | Angular & React",
   description:
-    "Frontend developer building fast, accessible web experiences with React and Next.js.",
+    "Shemilkumar is a senior frontend developer in Bengaluru specializing in Angular, React, and Next.js. Explore projects, case studies, and modern web architecture insights."
 };
 
 // Static skills list — edit this to match yours
@@ -45,12 +45,24 @@ export default function HomePage() {
 
           {/* Name + title */}
           <div className="space-y-3">
-            <h1 className="text-5xl sm:text-6xl font-bold tracking-tight text-white leading-[1.1]">
+            {/* <span className="flex gap-4 text-5xl sm:text-6xl font-bold tracking-tight text-white leading-[1.1]">
               Hey, I'm{" "}
-              <span className="text-emerald-400">Shemil</span>
-            </h1>
+              <h1 className="text-emerald-400">Shemilkumar</h1>
+            </span>
             <p className="font-mono text-zinc-500 text-sm tracking-widest uppercase">
-              Team Lead · Frontend Developer · Angular · Next.js · React
+              Sr. Frontend Developer · Team Lead · Angular · Next.js · React
+            </p> */}
+
+            <div className="flex gap-4 ">
+              <span className="text-5xl sm:text-6xl font-bold tracking-tight text-white leading-[1.1]">Hey, I'm</span>
+
+              <h1 className="text-emerald-400 text-5xl sm:text-6xl font-bold tracking-tight leading-[1.1]">
+                Shemilkumar
+              </h1>
+            </div>
+
+            <p className="font-mono text-zinc-500 text-sm tracking-widest uppercase">
+              Senior Frontend Developer · Angular · React · Next.js
             </p>
           </div>
 
@@ -77,7 +89,7 @@ export default function HomePage() {
               Get in touch
             </Link>
             <a
-              href="/resume.pdf"
+              href="/shemilkumar.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-white font-medium text-sm transition-all duration-200 hover:-translate-y-0.5"

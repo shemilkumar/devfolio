@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://shemilkumar.vercel.app
+
+# Sitemaps
+Sitemap: https://shemilkumar.vercel.app/sitemap.xml
