@@ -17,16 +17,16 @@ const skills = [
 // A few pinned projects shown on homepage — later these will come from Supabase
 const featured = [
   {
-    title: "Montana Resort - Resort Booking Website",
-    description: "Montana Resort is a beautifully designed, fully responsive website showcasing a premium hotel experience.",
-    tags: ["Next.js", "Tailwind", "Redux"],
-    href: "/projects/montana-resort---resort-booking-website",
+    title: "Real-Time ECG Monitoring & Visualization Platform",
+    description: "A real-time ECG monitoring system that streams and visualizes continuous biosensor data with buffering and network recovery for uninterrupted medical analysis.",
+    tags: ["Angular", "RxJs", "SCSS"],
+    href: "/projects/real-time-ecg-monitoring-visualization-platform-graph",
   },
   {
-    title: "Restaurantly - Food Ordering Platform",
-    description: "Restaurantly is a visually engaging website designed for online food ordering.",
-    tags: ["Angular", "Tailwind", "RXJS"],
-    href: "/projects/restaurantly---food-ordering-platform",
+    title: "Clinical Data Analysis & Annotation Platform (MIMIC Data System)",
+    description: "A doctor-focused clinical analysis platform that visualizes multi-source patient data, enables event annotation, and generates structured outputs for AI training.",
+    tags: ["Angular", "RxJs", "TailwindCSS"],
+    href: "/projects/clinical-data-analysis-annotation-platform-mimic-data-system",
   }
 ];
 
@@ -67,9 +67,10 @@ export default function HomePage() {
           </div>
 
           {/* Bio */}
-          <p className="text-zinc-400 text-lg leading-relaxed max-w-xl">
+          <p className="text-zinc-400 text-lg leading-relaxed max-w-2xl">
             I build fast, accessible web experiences. Focused on clean code,
-            good UX, and shipping things that actually work. Based in{" "}
+            good UX, and shipping things that actually work.
+            Based in{" "}
             <span className="text-zinc-200 font-semibold">Bengaluru, India</span>.
           </p>
 
@@ -170,9 +171,18 @@ export default function HomePage() {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
-              { label: "building", value: "This portfolio with Next.js" },
-              { label: "learning", value: "Full-stack patterns & Supabase" },
-              { label: "reading", value: "The Pragmatic Programmer" },
+              {
+                label: "building",
+                value: "Real-time, data-intensive systems with focus on performance, scalability, and reliabilities"
+              },
+              {
+                label: "learning",
+                value: "System design, AI integration, and advanced frontend architecture"
+              },
+              {
+                label: "reading",
+                value: "How AI can accelerate development without compromising engineering quality"
+              },
             ].map(({ label, value }) => (
               <div
                 key={label}
